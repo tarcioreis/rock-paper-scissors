@@ -3,59 +3,113 @@ let userInput;
 let userPoints = 0;
 let computerPoints = 0;
 
+
+const container = document.querySelector(".container");
+
+const rockButton = document.createElement("button");
+rockButton.textContent = "Rock";
+
+const paperButton = document.createElement("button");
+paperButton.textContent = "Paper";
+
+const scissorsButton = document.createElement("button");
+scissorsButton.textContent = "Scissors";
+
+const displayMessage = document.createElement("h4");
+
+container.appendChild(rockButton);
+container.appendChild(paperButton);
+container.appendChild(scissorsButton);
+container.appendChild(displayMessage);
+
+// get user choice
+function getButtonValue (event) {
+    //console.log(event.target.innerText);
+    const text = event.target.innerText;
+    playRound(text, getComputerChoice());
+}
+
 // generate random choice
 function getComputerChoice () {
 
-    options = ["rock", "paper", "scissors"];
+    options = ["Rock", "Paper", "Scissors"];
 
     // generate random number 0 to 2
     const choice = Math.floor(Math.random() * 3);
     return options[choice];
 }
 
+function checkWinner () {
+    if (userPoints === 5) {
+        window.alert("You won this game!!!");
+        userPoints = 0;
+        computerPoints = 0;
+        displayMessage.innerText = "";
+        document.querySelector("#userPointsTitle").innerText = userPoints;
+        document.querySelector("#computerPointsTitle").innerText = computerPoints;
+    }
+
+    if (computerPoints === 5) {
+        window.alert("Computer won this game!!!");
+        userPoints = 0;
+        computerPoints = 0;
+        displayMessage.innerText = "";
+        document.querySelector("#computerPointsTitle").innerText = computerPoints;
+        document.querySelector("#userPointsTitle").innerText = userPoints;
+    }
+}
+
 function playRound (userChoice, computerChoice) {
+    
+    checkWinner();
 
     if (userChoice === computerChoice)
-        return "draw!";
+        displayMessage.innerText = "Draw!";
 
-    // check if user win
-    if (userChoice === "rock" && computerChoice === "scissors") {
+    // check if u)ser win
+    if (userChoice === "Rock" && computerChoice === "Scissors") {
         userPoints += 1;
-        return "You win! rock breaks scissors";
+        document.querySelector("#userPointsTitle").innerText = userPoints;
+        displayMessage.innerText = "You win! rock breaks scissors";
     }
 
-    if (userChoice === "scissors" && computerChoice === "paper") {
+    if (userChoice === "Scissors" && computerChoice === "Paper") {
         userPoints += 1;
-        return "You win! scissors cuts paper";
+        document.querySelector("#userPointsTitle").innerText = userPoints;
+        displayMessage.innerText = "You win! scissors cuts paper";
     }
 
-    if (userChoice === "paper" && computerChoice === "rock") {
+    if (userChoice === "Paper" && computerChoice === "Rock") {
         userPoints += 1;
-        return "You win! paper beats rock";
+        document.querySelector("#userPointsTitle").innerText = userPoints;
+        displayMessage.innerText = "You win! paper beats rock";
     }
 
     // check if computer win
-    if (computerChoice === "rock" && userChoice === "scissors") {
+    if (computerChoice === "Rock" && userChoice === "Scissors") {
         computerPoints += 1;
-        return "You lose! rock breaks scissors";
+        document.querySelector("#computerPointsTitle").innerText = computerPoints;
+        displayMessage.innerText = "You lose! rock breaks scissors";
     }
 
-    if (computerChoice === "scissors" && userChoice === "paper") {
+    if (computerChoice === "Scissors" && userChoice === "Paper") {
         computerPoints += 1;
-        return "You lose! scissors cuts paper";
+        document.querySelector("#computerPointsTitle").innerText = computerPoints;
+        displayMessage.innerText = "You lose! scissors cuts paper";
     }
 
-    if (computerChoice === "paper" && userChoice === "rock") {
+    if (computerChoice === "Paper" && userChoice === "Rock") {
         computerPoints += 1;
-        return "You lose! paper beats rock";
+        document.querySelector("#computerPointsTitle").innerText = computerPoints;
+        displayMessage.innerText = "You lose! paper beats rock";
     }
 }
 
 function game () {
-    for (let i = 0; i < 5; i++) {
-        userInput = window.prompt();
-        console.log(playRound(userInput, getComputerChoice()));
-    }
+    
+    rockButton.onclick = getButtonValue;
+    paperButton.onclick = getButtonValue;
+    scissorsButton.onclick = getButtonValue;
 
     // check the winner
     if (userPoints > computerPoints)
