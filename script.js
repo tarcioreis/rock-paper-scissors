@@ -9,29 +9,33 @@ const container = document.querySelector(".container");
 const buttons = document.createElement("div");
 buttons.classList = "center";
 
-const rockButton = document.createElement("button");
-rockButton.textContent = "Rock";
+const rockImg = document.createElement("img");
+rockImg.id = "Rock";
+rockImg.src = "./img/rock.png";
 
-const paperButton = document.createElement("button");
-paperButton.textContent = "Paper";
+const paperImg = document.createElement("img");
+paperImg.id = "Paper";
+paperImg.src = "./img/paper.png";
 
-const scissorsButton = document.createElement("button");
-scissorsButton.textContent = "Scissors";
+const scissorsImg = document.createElement("img");
+scissorsImg.id = "Scissors";
+scissorsImg.src = "./img/scissors.png";
 
 const displayMessage = document.createElement("h4");
 displayMessage.classList = "text-center";
+displayMessage.style.fontSize = "25px";
 
-buttons.appendChild(rockButton);
-buttons.appendChild(paperButton);
-buttons.appendChild(scissorsButton);
+buttons.appendChild(rockImg);
+buttons.appendChild(paperImg);
+buttons.appendChild(scissorsImg);
 container.appendChild(buttons);
-container.appendChild(displayMessage);
-//container.insertBefore(displayMessage, rockButton);
+//container.appendChild(displayMessage);
+container.insertBefore(displayMessage, document.querySelector(".players"));
 
 // get user choice
-function getButtonValue (event) {
-    //console.log(event.target.innerText);
-    const text = event.target.innerText;
+const getButtonValue = event => {
+    
+    const text = event.target.id;
 
     if (userPoints === 5) {
         window.alert("You won this game!!!");
@@ -54,7 +58,7 @@ function getButtonValue (event) {
 }
 
 // generate random choice
-function getComputerChoice () {
+const getComputerChoice = () => {
 
     options = ["Rock", "Paper", "Scissors"];
 
@@ -63,12 +67,13 @@ function getComputerChoice () {
     return options[choice];
 }
 
-function playRound (userChoice, computerChoice) {
+
+const playRound = (userChoice, computerChoice) => {
     
     if (userChoice === computerChoice)
         displayMessage.innerText = "Draw!";
 
-    // check if u)ser win
+    // check if user win
     if (userChoice === "Rock" && computerChoice === "Scissors") {
         userPoints += 1;
         document.querySelector("#userPointsTitle").innerText = userPoints;
@@ -107,20 +112,15 @@ function playRound (userChoice, computerChoice) {
     }
 }
 
-function game () {
+const game = () => {
     
-    rockButton.onclick = getButtonValue;
-    paperButton.onclick = getButtonValue;
-    scissorsButton.onclick = getButtonValue;
-
-    // check the winner
-    if (userPoints > computerPoints)
-        console.log("You are the winner!", + userPoints + " points")
-    else if (computerPoints > userPoints)
-        console.log("Computer are the winner!", + computerPoints + " points")
-    else
-        console.log("game tied");
-    
+    rockImg.onclick = getButtonValue;
+    paperImg.onclick = getButtonValue;
+    scissorsImg.onclick = getButtonValue;
 }
 
 game();
+
+/*
+<a href="https://www.flaticon.com/free-icons/rock-paper-scissors" title="rock paper scissors icons">Rock paper scissors icons created by Freepik - Flaticon</a>
+ */
