@@ -6,8 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper and Scissors</title>
     <style>
+        
         .players {
+            /*border: 1px solid red;*/
             display: flex;
+            justify-content: center;
+        }
+
+        .player {
+            margin: 3%;
+            text-align: center;
+        }
+
+        .center {
+            /*border: 1px solid gold;*/
+            display: flex;
+            justify-content: center;
+        }
+
+        .center button {
+            margin: 2%;
+        }
+
+        .text-center {
+            text-align: center;
         }
     </style>
 </head>
@@ -16,14 +38,14 @@
         
         <div class="players">
             
-            <div class="user">
+            <div class="player">
                 <h3>user</h3>
-                <h4 id="userPointsTitle"></h4>
+                <h4 id="userPointsTitle">0</h4>
             </div>
 
-            <div class="computer">
+            <div class="player">
                 <h3>computer</h3>
-                <h4 id="computerPointsTitle"></h4>
+                <h4 id="computerPointsTitle">0</h4>
             </div>
         
         </div>

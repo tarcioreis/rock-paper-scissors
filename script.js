@@ -6,6 +6,9 @@ let computerPoints = 0;
 
 const container = document.querySelector(".container");
 
+const buttons = document.createElement("div");
+buttons.classList = "center";
+
 const rockButton = document.createElement("button");
 rockButton.textContent = "Rock";
 
@@ -16,17 +19,38 @@ const scissorsButton = document.createElement("button");
 scissorsButton.textContent = "Scissors";
 
 const displayMessage = document.createElement("h4");
+displayMessage.classList = "text-center";
 
-container.appendChild(rockButton);
-container.appendChild(paperButton);
-container.appendChild(scissorsButton);
+buttons.appendChild(rockButton);
+buttons.appendChild(paperButton);
+buttons.appendChild(scissorsButton);
+container.appendChild(buttons);
 container.appendChild(displayMessage);
+//container.insertBefore(displayMessage, rockButton);
 
 // get user choice
 function getButtonValue (event) {
     //console.log(event.target.innerText);
     const text = event.target.innerText;
-    playRound(text, getComputerChoice());
+
+    if (userPoints === 5) {
+        window.alert("You won this game!!!");
+        userPoints = 0;
+        computerPoints = 0;
+        displayMessage.innerText = "";
+        document.querySelector("#userPointsTitle").innerText = userPoints;
+        document.querySelector("#computerPointsTitle").innerText = computerPoints;
+    }
+    else if (computerPoints === 5) {
+        window.alert("Computer won this game!!!");
+        userPoints = 0;
+        computerPoints = 0;
+        displayMessage.innerText = "";
+        document.querySelector("#userPointsTitle").innerText = userPoints;
+        document.querySelector("#computerPointsTitle").innerText = computerPoints;
+    }
+    else
+        playRound(text, getComputerChoice());
 }
 
 // generate random choice
@@ -39,30 +63,8 @@ function getComputerChoice () {
     return options[choice];
 }
 
-function checkWinner () {
-    if (userPoints === 5) {
-        window.alert("You won this game!!!");
-        userPoints = 0;
-        computerPoints = 0;
-        displayMessage.innerText = "";
-        document.querySelector("#userPointsTitle").innerText = userPoints;
-        document.querySelector("#computerPointsTitle").innerText = computerPoints;
-    }
-
-    if (computerPoints === 5) {
-        window.alert("Computer won this game!!!");
-        userPoints = 0;
-        computerPoints = 0;
-        displayMessage.innerText = "";
-        document.querySelector("#computerPointsTitle").innerText = computerPoints;
-        document.querySelector("#userPointsTitle").innerText = userPoints;
-    }
-}
-
 function playRound (userChoice, computerChoice) {
     
-    checkWinner();
-
     if (userChoice === computerChoice)
         displayMessage.innerText = "Draw!";
 
